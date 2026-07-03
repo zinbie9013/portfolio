@@ -219,6 +219,75 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;o
 @media(prefers-reduced-motion:reduce){
   .hero-icon,.hero-tag{animation:none;opacity:1;}
 }
+
+/* ── MOBILE OVERHAUL ── */
+@media(max-width:480px){
+
+  /* HELLO */
+  #hello-word{font-size:clamp(52px,16vw,80px);}
+
+  /* HERO */
+  #hero{min-height:100svh;}
+  .hero-top{
+    font-size:clamp(42px,12vw,64px);
+    padding-top:20px;
+    letter-spacing:-0.02em;
+  }
+  .hero-bottom{
+    font-size:clamp(32px,10vw,52px);
+    letter-spacing:-0.02em;
+    padding-bottom:10px;
+  }
+  .hero-to,.hero-my{font-size:clamp(20px,5.5vw,32px);}
+  .hero-mid{padding:0 12px;min-height:10px;}
+
+  /* photo */
+  .hero-photo-wrap{
+    width:clamp(160px,52vw,240px);
+    height:clamp(213px,69vw,320px);
+    margin:-70px auto -60px;
+  }
+
+  /* icons — smaller, tucked into corners */
+  .hero-icon{width:30px;height:30px;}
+  .hero-icon svg{width:14px;height:14px;}
+  .hero-tag{font-size:9px;padding:4px 10px;border-radius:14px;}
+
+  .hero-deco:nth-child(1){top:10% !important;left:3% !important;}
+  .hero-deco:nth-child(2){top:8% !important;right:3% !important;}
+  .hero-deco:nth-child(3){bottom:40% !important;left:3% !important;}
+  .hero-deco:nth-child(4){top:20% !important;left:2% !important;}
+  .hero-deco:nth-child(5){bottom:40% !important;right:2% !important;}
+  .hero-deco:nth-child(6){bottom:30% !important;left:2% !important;}
+
+  /* gradient */
+  .circles-wrap{height:160px;}
+
+  /* scroll hint */
+  .scroll-hint{bottom:8px;}
+  .scroll-hint span{font-size:9px;}
+
+  /* category word */
+  .cat-word{
+    font-size:clamp(36px,11vw,60px);
+    white-space:normal;
+    text-align:center;
+    width:90%;
+    line-height:1.1;
+  }
+
+  /* progress dots — hide on mobile, too small */
+  #progress-nav{display:none;}
+
+  /* skillset */
+  .skillset-title{font-size:clamp(36px,11vw,56px);}
+  .stair-item:nth-child(3){padding-left:60px !important;}
+  .stair-item:nth-child(7){padding-left:60px !important;}
+
+  /* collab */
+  .collab-title{font-size:clamp(30px,9vw,48px);}
+  .insta-link{font-size:14px;}
+}
 .circles-wrap{
   height:220px;
   background:linear-gradient(to bottom, var(--yellow) 0%, #8a6500 45%, #2a1d00 75%, var(--black) 100%);
