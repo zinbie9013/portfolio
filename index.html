@@ -15,9 +15,19 @@
   --neon-pink:#FF2D78;
   --neon-cyan:#00F5FF;
   --neon-lime:#BFFF00;
+  
+  /* Dynamic Background States */
+  --bg-current: #0a0a0a;
 }
 html{scroll-behavior:auto;overflow-x:hidden;max-width:100%;}
-body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;max-width:100%;}
+body{
+  background: var(--bg-current);
+  color:var(--white);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+  max-width:100%;
+  transition: background-color 0.8s cubic-bezier(0.25, 1, 0.5, 1); /* Elegant background blending */
+}
 
 /* ── CUSTOM KINETIC MAGNET CURSOR ── */
 #custom-cursor {
@@ -303,7 +313,6 @@ body:hover #custom-cursor { opacity: 1; }
   .circles-wrap{height:120px;}
   .scroll-hint{bottom:8px;}
   .scroll-hint span{font-size:9px;}
-  .cat-word{font-size:clamp(32px,10vw,56px); white-space:nowrap; text-align:center; width:100%; left:0; transform:translateY(-50%) !important;}
   body, .cat-sticky, .cat-section{overflow-x:hidden;}
   #progress-nav{display:none;}
   .skillset-title{font-size:clamp(36px,11vw,56px);}
@@ -314,7 +323,7 @@ body:hover #custom-cursor { opacity: 1; }
 }
 .circles-wrap{
   height:220px;
-  background:linear-gradient(to bottom, var(--yellow) 0%, #8a6500 45%, #2a1d00 75%, var(--black) 100%);
+  background:linear-gradient(to bottom, var(--yellow) 0%, #171100 45%, #0d0a00 75%, var(--black) 100%);
   flex-shrink:0;
 }
 
@@ -326,32 +335,18 @@ body:hover #custom-cursor { opacity: 1; }
 .cat-sticky{
   position:sticky;top:0;
   height:100vh;overflow:hidden;
-  background:var(--black);
-}
-.cat-word{
-  position:absolute;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  font-family:'Inter',sans-serif;font-weight:900;
-  font-size:clamp(48px,14vw,110px);
-  color:rgba(255,255,255,0.07);
-  letter-spacing:-0.02em;
-  white-space:nowrap;
-  pointer-events:none;z-index:0;
-  user-select:none;
-  will-change: transform;
+  background:transparent; /* Blends nicely into body transitions */
 }
 .photo-canvas{
   position:absolute;inset:0;z-index:1;
 }
-/* ── UPGRADED HOVER PHYSICS ── */
 .floating-photo{
   position:absolute;
   border-radius:12px;overflow:hidden;
   will-change:transform,opacity;
   background:#1a1a1a;
   box-shadow:0 20px 40px rgba(0,0,0,0.6);
-  pointer-events: auto; /* Re-enabled for click and hover */
+  pointer-events: auto;
   cursor: pointer;
   transition: box-shadow 0.3s ease, filter 0.3s ease;
 }
@@ -360,7 +355,6 @@ body:hover #custom-cursor { opacity: 1; }
   object-fit:cover;display:block;
   transition:transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
-/* Hover effect: Scale interior frame slightly & enhance shadows */
 .floating-photo:hover {
   box-shadow: 0 30px 60px rgba(255, 45, 120, 0.25);
   z-index: 10 !important;
@@ -378,7 +372,7 @@ body:hover #custom-cursor { opacity: 1; }
 
 /* ── SKILLSET ── */
 #skillset{
-  background:var(--black);
+  background:transparent;
   padding:80px 0 40px;
   min-height:100vh;
 }
@@ -435,7 +429,7 @@ body:hover #custom-cursor { opacity: 1; }
 
 /* ── COLLAB ── */
 #collab{
-  background:var(--black);
+  background:transparent;
   padding:60px 24px 80px;
   text-align:center;
   border-top:1px solid #1a1a1a;
@@ -564,21 +558,18 @@ body:hover #custom-cursor { opacity: 1; }
 
 <section class="cat-section" id="sec-photography">
   <div class="cat-sticky">
-    <div class="cat-word" id="word-photography">PHOTOGRAPHY</div>
     <div class="photo-canvas" id="canvas-photography"></div>
   </div>
 </section>
 
 <section class="cat-section" id="sec-makeup">
   <div class="cat-sticky">
-    <div class="cat-word" id="word-makeup">MAKEUP</div>
     <div class="photo-canvas" id="canvas-makeup"></div>
   </div>
 </section>
 
 <section class="cat-section" id="sec-design">
   <div class="cat-sticky">
-    <div class="cat-word" id="word-design">DESIGN</div>
     <div class="photo-canvas" id="canvas-design"></div>
   </div>
 </section>
@@ -632,7 +623,6 @@ document.addEventListener('mousemove', (e) => {
 });
 
 function animateCursor() {
-  // Linear interpolation creates smooth trailing physics
   cursorX += (mouseX - cursorX) * 0.14;
   cursorY += (mouseY - cursorY) * 0.14;
   cursor.style.left = `${cursorX}px`;
@@ -641,7 +631,6 @@ function animateCursor() {
 }
 animateCursor();
 
-// Magnet state changes on special hover zones
 document.addEventListener('mouseover', (e) => {
   if (e.target.closest('.floating-photo') || e.target.closest('.target-hover') || e.target.closest('.progress-dot')) {
     cursor.style.width = '50px';
@@ -677,7 +666,7 @@ const hellos = [
   {word:"नमस्ते", lang:"Hindi"},
   {word:"நமஸ்தே", lang:"Tamil"},
   {word:"నమస్కారం", lang:"Telugu"},
-  {word:"ನమస్కಾರ", lang:"Kannada"},
+  {word:"ನಮಸ್ಕಾರ", lang:"Kannada"},
   {word:"നമസ്കാരം", lang:"Malayalam"},
   {word:"নমস্কার", lang:"Bengali"},
   {word:"નમસ્તે", lang:"Gujarati"},
@@ -776,7 +765,6 @@ function buildCanvas(canvasId, items) {
     `;
     el.innerHTML = `<img src="${item.label}" alt="" onerror="this.parentElement.innerHTML='<div class=&quot;ph-box&quot;>${item.label}</div>'">`;
     
-    // Bind Lightbox click access directly to image cards
     el.addEventListener('click', () => {
       const img = el.querySelector('img');
       if(img) openLightbox(img.src);
@@ -790,10 +778,18 @@ buildCanvas('canvas-photography', photoData.photography);
 buildCanvas('canvas-makeup', photoData.makeup);
 buildCanvas('canvas-design', photoData.design);
 
-// ── FIXED PARALLAX FLOW & HORIZONTAL TYPOGRAPHY SHIFTING ──
-function animateSection(sectionId, canvasId, wordId, direction = 1) {
+// ── FIXED PARALLAX FLOW & AMBIENT BACKGROUND MANAGER ──
+const sectionColors = {
+  'hero': '#0a0a0a',
+  'sec-photography': '#0e0b11', /* Subtle deep violet */
+  'sec-makeup': '#140d0a',      /* Subtle deep warmth */
+  'sec-design': '#091012',      /* Subtle deep cyan-slate */
+  'skillset': '#0a0a0a',
+  'collab': '#0a0a0a'
+};
+
+function animateSection(sectionId, canvasId) {
   const section = document.getElementById(sectionId);
-  const word = document.getElementById(wordId);
   return function() {
     const photos = document.querySelectorAll(`#${canvasId} .floating-photo`);
     if(!section) return;
@@ -806,10 +802,9 @@ function animateSection(sectionId, canvasId, wordId, direction = 1) {
     const maxScroll = section.offsetHeight - viewH;
     const progress = Math.max(0, Math.min(1, scrolled / maxScroll));
 
-    // Dynamic horizontal tracking calculations for background text
-    if (word && rect.top <= viewH && rect.bottom >= 0) {
-      const textX = (progress - 0.5) * 350 * direction;
-      word.style.transform = `translate(calc(-50% + ${textX}px), -50%)`;
+    // Monitor midpoint intersections to trigger immersive theme ambient colors
+    if (rect.top <= viewH / 2 && rect.bottom >= viewH / 2) {
+      document.body.style.setProperty('--bg-current', sectionColors[sectionId]);
     }
 
     if(!photos.length) return;
@@ -842,7 +837,6 @@ function animateSection(sectionId, canvasId, wordId, direction = 1) {
       }
 
       photo.style.opacity = opacity;
-      // Preserve tracking math cleanly unless custom hover overrides active state
       if (!photo.matches(':hover')) {
         photo.style.transform = `translateY(${ty}px) scale(${scale})`;
       }
@@ -851,9 +845,9 @@ function animateSection(sectionId, canvasId, wordId, direction = 1) {
   };
 }
 
-const animPhoto = animateSection('sec-photography','canvas-photography', 'word-photography', -1);
-const animMakeup = animateSection('sec-makeup','canvas-makeup', 'word-makeup', 1);
-const animDesign = animateSection('sec-design','canvas-design', 'word-design', -1);
+const animPhoto = animateSection('sec-photography','canvas-photography');
+const animMakeup = animateSection('sec-makeup','canvas-makeup');
+const animDesign = animateSection('sec-design','canvas-design');
 
 // ── STAIR REVEAL ──
 const stairObs = new IntersectionObserver(entries => {
@@ -907,6 +901,10 @@ function animateHero() {
   const scale = 1 - progress * 0.04;
   heroEl.style.opacity = Math.max(0.15, fadeOpacity);
   heroEl.style.transform = `scale(${scale})`;
+  
+  if(scrollY <= heroH) {
+    document.body.style.setProperty('--bg-current', sectionColors['hero']);
+  }
 }
 
 function onScroll() {
@@ -915,6 +913,18 @@ function onScroll() {
   animDesign();
   updateProgressNav();
   animateHero();
+  
+  // Clean up global backup hooks for static landing states
+  const viewH = window.innerHeight;
+  ['skillset', 'collab'].forEach(id => {
+    const el = document.getElementById(id);
+    if(el) {
+      const r = el.getBoundingClientRect();
+      if(r.top <= viewH/2 && r.bottom >= viewH/2) {
+        document.body.style.setProperty('--bg-current', sectionColors[id]);
+      }
+    }
+  });
 }
 
 // ── PROGRESS NAV ──
