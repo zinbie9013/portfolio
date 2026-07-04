@@ -83,6 +83,8 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;o
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   z-index:1000;
   transition:opacity 1s ease, visibility 1s ease;
+  text-align:center;
+  padding:20px;
 }
 #hello-screen.hidden{opacity:0;visibility:hidden;pointer-events:none;}
 #hello-word{
@@ -95,18 +97,20 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;o
 #hello-word.fade{opacity:0;transform:translateY(-12px);}
 #hello-name-intro{
   font-size:13px;font-weight:400;
-  color:rgba(255,255,255,0.5);
+  color:rgba(255,255,255,0.7);
   letter-spacing:0.22em;text-transform:uppercase;
   margin-top:14px;
   transition:opacity 0.25s ease;
+  text-align:center;
 }
 #hello-name-intro.fade{opacity:0;}
 #hello-lang{
   font-size:11px;font-weight:400;
-  color:rgba(255,255,255,0.35);
+  color:rgba(0,0,0,0.45);
   letter-spacing:0.18em;text-transform:uppercase;
   margin-top:6px;
   transition:opacity 0.2s ease;
+  text-align:center;
 }
 #hello-lang.fade{opacity:0;}
 
@@ -260,8 +264,12 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;o
   .hero-deco:nth-child(5){bottom:40% !important;right:2% !important;}
   .hero-deco:nth-child(6){bottom:30% !important;left:2% !important;}
 
-  /* gradient */
-  .circles-wrap{height:160px;}
+  /* gradient — shorter on mobile */
+  .circles-wrap{height:120px;}
+
+  /* hide MAKEUP and DESIGN tags on mobile — they spill outside hero */
+  .hero-deco:nth-child(5),
+  .hero-deco:nth-child(6){display:none;}
 
   /* scroll hint */
   .scroll-hint{bottom:8px;}
@@ -291,6 +299,7 @@ body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;o
 .circles-wrap{
   height:220px;
   background:linear-gradient(to bottom, var(--yellow) 0%, #8a6500 45%, #2a1d00 75%, var(--black) 100%);
+  flex-shrink:0;
 }
 
 /* ── CATEGORY SECTIONS ── */
