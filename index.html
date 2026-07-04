@@ -887,6 +887,9 @@ let currentScrollY = window.scrollY;
 const scrollEase = 0.085; 
 
 window.addEventListener('wheel', (e) => {
+  // If they are on a phone/tablet (screen width less than 1024px), let the phone handle scrolling normally!
+  if (window.innerWidth <= 1024) return;
+  
   if (lightbox.classList.contains('active')) return;
   e.preventDefault();
   targetScrollY += e.deltaY;
